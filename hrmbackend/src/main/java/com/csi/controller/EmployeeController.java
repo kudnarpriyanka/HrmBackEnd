@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -27,4 +28,10 @@ public class EmployeeController {
     public ResponseEntity<List<Employee>> findAll() {
         return ResponseEntity.ok(employeeServiceImpl.findAll());
     }
+
+    @GetMapping("/sortbyname")
+    public ResponseEntity<List<Employee>> sortByName() {
+        return ResponseEntity.ok(employeeServiceImpl.findAll().stream().sorted(Comparator.comparing(Employee::getEmpName)).toList());
+    }
+
 }
